@@ -14,7 +14,6 @@ use Symfony\Component\PropertyInfo\Type;
 
 /**
  * Class TypeScriptGenerator
- * @package A5sys\TypeScriptGeneratorBundle\Generator
  */
 class TypeScriptGenerator
 {
