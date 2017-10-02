@@ -38,6 +38,7 @@ class GenerateTypeScriptCommand extends Command
             ->setName('a5sys:ts-generator:'.$this->commandName)
             ->addArgument('input', InputArgument::REQUIRED, 'Input path')
             ->addArgument('output', InputArgument::REQUIRED, 'Output path')
+            ->setDescription(sprintf('Generate TypeScript %s from PHP classes', $this->commandName));
         ;
     }
 
