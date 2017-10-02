@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="a5sys_typescript_generator.generate_interface_command" class="A5sys\TypeScriptGeneratorBundle\Command\GenerateTypeScriptCommand">
+            <argument type="service" id="a5sys_typescript_generator.interface_generator"/>
+            <argument type="string">interface</argument>
+            <tag name="console.command" />
+        </service>
+        <service id="a5sys_typescript_generator.generate_class_command" class="A5sys\TypeScriptGeneratorBundle\Command\GenerateTypeScriptCommand">
+            <argument type="service" id="a5sys_typescript_generator.class_generator"/>
+            <argument type="string">class</argument>
+            <tag name="console.command" />
+        </service>
+        <service id="a5sys_typescript_generator.generator" class="A5sys\TypeScriptGeneratorBundle\Generator\TypeScriptGenerator" abstract="true" lazy="true">
+            <argument type="service" id="twig" />
+        </service>
+        <service id="a5sys_typescript_generator.interface_generator" class="A5sys\TypeScriptGeneratorBundle\Generator\TypeScriptGenerator" parent="a5sys_typescript_generator.generator">
+            <argument type="string">@A5sysTypeScriptGenerator/interface.ts.twig</argument>
+        </service>
+        <service id="a5sys_typescript_generator.class_generator" class="A5sys\TypeScriptGeneratorBundle\Generator\TypeScriptGenerator" parent="a5sys_typescript_generator.generator">
+            <argument type="string">@A5sysTypeScriptGenerator/class.ts.twig</argument>
+        </service>
+    </services>
+</container>

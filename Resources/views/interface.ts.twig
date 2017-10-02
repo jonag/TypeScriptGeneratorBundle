@@ -1,0 +1,9 @@
+{% for classToImport in classesToImport %}
+import { {{ classToImport }} } from './{{ classToImport }}';
+{% endfor %}
+
+export interface {{ name }} {
+{% for property in properties %}
+  {{ property.name }}: {{ property.type }};
+{% endfor %}
+}

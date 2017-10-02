@@ -1,0 +1,11 @@
+{% for classToImport in classesToImport %}
+import { {{ classToImport }} } from './{{ classToImport }}';
+{% endfor %}
+
+export class {{ name }} {
+  constructor(
+  {% for property in properties %}
+  {{ property.name }}: {{ property.type }},
+  {% endfor -%}
+  ) {}
+}
