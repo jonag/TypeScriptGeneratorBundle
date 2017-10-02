@@ -153,7 +153,7 @@ class TypeScriptGenerator
     private function computeArrayType(Type $type): array
     {
         if ($type->getCollectionValueType() !== null) {
-            list($inferredType, $typeToImport) = $this->getType([$type->getCollectionValueType()]);
+            [$inferredType, $typeToImport] = $this->getType([$type->getCollectionValueType()]);
 
             return [$inferredType.'[]', $typeToImport];
         }
