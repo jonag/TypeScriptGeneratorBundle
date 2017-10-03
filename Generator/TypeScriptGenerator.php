@@ -3,12 +3,8 @@
 namespace A5sys\TypeScriptGeneratorBundle\Generator;
 
 use A5sys\TypeScriptGeneratorBundle\Util\ClassExtractor;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Tools\DisconnectedClassMetadataFactory;
-use Symfony\Bridge\Doctrine\PropertyInfo\DoctrineExtractor;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
-use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
 use Symfony\Component\PropertyInfo\PropertyInfoExtractor;
 use Symfony\Component\PropertyInfo\Type;
 
@@ -30,24 +26,15 @@ class TypeScriptGenerator
 
     /**
      * TypeScriptInterfaceGenerator constructor.
-     * @param \Twig_Environment $twig
-     * @param string            $templateName
+     * @param \Twig_Environment                                     $twig
+     * @param \Symfony\Component\PropertyInfo\PropertyInfoExtractor $propertyInfo
+     * @param string                                                $templateName
      */
-    public function __construct(\Twig_Environment $twig, string $templateName)
+    public function __construct(\Twig_Environment $twig, PropertyInfoExtractor $propertyInfo, string $templateName)
     {
         $this->twig = $twig;
         $this->templateName = $templateName;
-
-        $phpDocExtractor = new PhpDocExtractor();
-        $reflectionExtractor = new ReflectionExtractor();
-        $doctrineExtractor = new DoctrineExtractor(new DisconnectedClassMetadataFactory());
-
-        $this->propertyInfo = new PropertyInfoExtractor(
-            [$reflectionExtractor, $doctrineExtractor],
-            [$phpDocExtractor, $reflectionExtractor, $doctrineExtractor],
-            [$phpDocExtractor],
-            [$reflectionExtractor]
-        );
+        $this->propertyInfo = $propertyInfo;
     }
 
     /**
@@ -122,9 +109,10 @@ class TypeScriptGenerator
                     return $this->computePritimiveType($type);
 
                 case Type::BUILTIN_TYPE_ARRAY:
+                case Type::BUILTIN_TYPE_OBJECT && ($type->getClassName() === Collection::class):
                     return $this->computeArrayType($type);
 
-                case Type::BUILTIN_TYPE_OBJECT && ($type->getClassName() !== ArrayCollection::class):
+                case Type::BUILTIN_TYPE_OBJECT && ($type->getClassName() !== Collection::class):
                     return $this->computeObjectType($type);
             }
         }

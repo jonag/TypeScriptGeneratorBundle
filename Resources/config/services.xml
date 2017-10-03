@@ -17,6 +17,7 @@
         </service>
         <service id="a5sys_typescript_generator.generator" class="A5sys\TypeScriptGeneratorBundle\Generator\TypeScriptGenerator" abstract="true" lazy="true">
             <argument type="service" id="twig" />
+            <argument type="service" id="property_info" />
         </service>
         <service id="a5sys_typescript_generator.interface_generator" class="A5sys\TypeScriptGeneratorBundle\Generator\TypeScriptGenerator" parent="a5sys_typescript_generator.generator">
             <argument type="string">@A5sysTypeScriptGenerator/interface.ts.twig</argument>
