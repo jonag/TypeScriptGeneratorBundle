@@ -10,11 +10,12 @@
         "php": ">= 7.1",
         "symfony/framework-bundle": "^2.8||^3.0",
         "symfony/console": "^2.8||^3.0",
-        "doctrine/doctrine-bundle": "^1.6.3",
-        "doctrine/orm": "~2.3",
         "symfony/property-info": "^2.8||^3.0",
-        "phpdocumentor/reflection-docblock": "^3.0||^4.0",
         "twig/twig": "^1.28||^2.0",
         "symfony/twig-bundle": "^2.7||^3.0"
+    },
+    "suggest": {
+        "symfony/doctrine-bridge": "Needed to extract class metadata from Doctrine",
+        "phpocumentor/reflection": "Needed to extract data from the PhpDoc"
     }
 }
